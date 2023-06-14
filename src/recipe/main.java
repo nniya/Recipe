@@ -13,9 +13,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.util.ArrayList;
 import static java.util.Collections.list;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -49,9 +52,11 @@ public class main extends javax.swing.JFrame {
             String line = reader.readLine();
 
             while (line != null) {
-
                     String[] sections = line.split(" ");
                     String name = sections[0];
+                    Double time = Double.valueOf(sections[1]);
+//                    String[] ing
+//                    String ing = selections
                     items.add(name);
                     line = reader.readLine();
             }
@@ -116,8 +121,10 @@ public class main extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        SearchName = new javax.swing.JTextField();
         addButton1 = new javax.swing.JButton();
+        SearchIng = new javax.swing.JTextField();
+        addButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,7 +145,7 @@ public class main extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(220, 177, 129));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("DELETE");
+        jButton1.setText("Delete");
         jButton1.setToolTipText("");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,20 +154,37 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Search");
-        jTextField1.setToolTipText("Search name");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        SearchName.setText("Search");
+        SearchName.setToolTipText("Search name");
+        SearchName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                SearchNameActionPerformed(evt);
             }
         });
 
         addButton1.setBackground(new java.awt.Color(220, 177, 129));
         addButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        addButton1.setText("ADD");
+        addButton1.setText("Add");
         addButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButton1ActionPerformed(evt);
+            }
+        });
+
+        SearchIng.setText("Search ingredients");
+        SearchIng.setToolTipText("Search ingredients");
+        SearchIng.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchIngMouseClicked(evt);
+            }
+        });
+
+        addButton2.setBackground(new java.awt.Color(220, 177, 129));
+        addButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        addButton2.setText("Search");
+        addButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButton2ActionPerformed(evt);
             }
         });
 
@@ -171,24 +195,30 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SearchIng, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(SearchName)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                    .addComponent(addButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(addButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(401, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(SearchIng, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(addButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(237, 203, 164));
@@ -209,9 +239,9 @@ public class main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(483, Short.MAX_VALUE)
+                .addContainerGap(534, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -242,11 +272,25 @@ public class main extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        String name = SearchName.getText();
+        ArrayList<Recipe> recipes2 = new ArrayList<>();
+        for (Iterator<Recipe> it = this.recipes.iterator(); it.hasNext();) {
+            Recipe recipe = it.next();
+            String recipeName = recipe.getName().toLowerCase();
+            if (recipeName.startsWith(name.toLowerCase())) {
+                recipes2.add(recipe);
+            }
+        }
+        this.recipes = recipes2;
+        main obj = new main(recipes);
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_addButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void SearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        SearchName.setText("");
+    }//GEN-LAST:event_SearchNameActionPerformed
 
     private void addButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton1ActionPerformed
         // TODO add your handling code here:
@@ -287,6 +331,29 @@ public class main extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void addButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton2ActionPerformed
+        // TODO add your handling code here:
+        String ing = SearchIng.getText();
+         System.out.println(ing);
+        ArrayList<Recipe> recipes2 = new ArrayList<>();
+        for (Recipe recipe : this.recipes) {
+            HashMap<String, String> recipeIng = recipe.getIngredients();
+            System.out.println(recipeIng);
+            if (recipeIng.containsKey(ing)) {
+                recipes2.add(recipe);
+            }
+        }
+        this.recipes = recipes2;
+        main obj = new main(recipes);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addButton2ActionPerformed
+
+    private void SearchIngMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchIngMouseClicked
+        // TODO add your handling code here:
+        SearchIng.setText("");
+    }//GEN-LAST:event_SearchIngMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -325,12 +392,14 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField SearchIng;
+    private javax.swing.JTextField SearchName;
     private javax.swing.JButton addButton;
     private javax.swing.JButton addButton1;
+    private javax.swing.JButton addButton2;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
