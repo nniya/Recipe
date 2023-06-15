@@ -76,7 +76,7 @@ public class Recipe {
         for (int i = 0; i < this.steps.size(); i++) {
             steps += this.steps.get(i) + ",";
         }
-        return this.name + " " + this.time + " " + ingredients + "+"+ steps+ "\n";
+        return this.name + "-" + this.time + "-" + ingredients + "+"+ steps+ "\n";
     }
     
 }

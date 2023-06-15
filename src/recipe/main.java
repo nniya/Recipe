@@ -10,8 +10,10 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class main extends javax.swing.JFrame {
 //    File recipeFile = new File("recipes.txt");
 
     public main() {
-        
+
         BufferedReader reader;
         LinkedList<String> items = new LinkedList<>();
         try {
@@ -52,37 +54,51 @@ public class main extends javax.swing.JFrame {
             String line = reader.readLine();
 
             while (line != null) {
-                    String[] sections = line.split(" ");
-                    String name = sections[0];
-                    Double time = Double.valueOf(sections[1]);
-//                    String[] ing
-//                    String ing = selections
-                    items.add(name);
-                    line = reader.readLine();
+                String[] sections = line.split("-");
+                String name = sections[0];
+                Double time = Double.valueOf(sections[1]);
+                String[] ings = sections[2].split("\\+")[0].split(",");
+                HashMap<String, String> ingrs = new HashMap<>();
+                for (String ing : ings) {
+                    String ing1 = ing.split(":")[0];
+                    String quan = ing.split(":")[1];
+                    ingrs.put(ing1, quan);
+                }
+                LinkedList<String> stps = new LinkedList<>();
+                String[] steps = sections[2].split("\\+")[1].split(",");
+                for (String step : steps) {
+                    stps.add(step);
+                }
+                Recipe rsp = new Recipe(name, time, ingrs, stps);
+                this.recipes.add(rsp);
+                System.out.println(rsp.toString());
+                items.add(name);
+                line = reader.readLine();
             }
 
-                reader.close();
+            reader.close();
         } catch (IOException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
-        
+
         String[] names = new String[items.size()];
-        
+
         for (int i = 0; i < items.size(); i++) {
             names[i] = items.get(i);
         }
-        
+
         myInitComponents(names);
         initComponents();
 
     }
 
     public main(ArrayList<Recipe> rps) {
-//        this.recipes = rps;
-//        for (int i = 0; i < rps.size(); i++) {
-//            System.out.println(rps.get(i).toString());
-//        }
-//        myInitComponents();
+        this.recipes = rps;
+        String[] names = new String[rps.size()];
+        for (int i = 0; i < rps.size(); i++) {
+            names[i] = rps.get(i).getName();
+        }
+        myInitComponents(names);
         initComponents();
     }
 
@@ -95,7 +111,7 @@ public class main extends javax.swing.JFrame {
 //    private String getSelectionIndex() {
 //        return String.valueOf(list.getSelectedIndex());
 //    }
-    public void myInitComponents( String[] names ) {
+    public void myInitComponents(String[] names) {
         JList list = new JList(names);
         list.setBackground(new Color(207, 160, 90));
         list.setPreferredSize(new Dimension(480, 650));
@@ -156,6 +172,11 @@ public class main extends javax.swing.JFrame {
 
         SearchName.setText("Search");
         SearchName.setToolTipText("Search name");
+        SearchName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchNameMouseClicked(evt);
+            }
+        });
         SearchName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchNameActionPerformed(evt);
@@ -274,15 +295,15 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
         String name = SearchName.getText();
         ArrayList<Recipe> recipes2 = new ArrayList<>();
-        for (Iterator<Recipe> it = this.recipes.iterator(); it.hasNext();) {
-            Recipe recipe = it.next();
+        for (Recipe recipe : this.recipes) {
             String recipeName = recipe.getName().toLowerCase();
+            System.out.println(recipeName);
+            System.out.println(name);
             if (recipeName.startsWith(name.toLowerCase())) {
                 recipes2.add(recipe);
             }
         }
-        this.recipes = recipes2;
-        main obj = new main(recipes);
+        main obj = new main(recipes2);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
@@ -322,8 +343,22 @@ public class main extends javax.swing.JFrame {
                 newRsp.add(this.recipes.get(i));
             }
         }
+     FileWriter recipeWriter;
         this.recipes = newRsp;
+            String txt="";
+       try {
+           for(Recipe recipe: this.recipes) {
+               txt+=recipe.toString();
+           }
+                recipeWriter = new FileWriter("recipes.txt");
+                recipeWriter.write(txt);
+                recipeWriter.close();
+            } catch (IOException ex) {
+              //  Logger.getLogger(AddFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
 
+     
         // Get all the selected items using the indices
         main obj = new main(this.recipes);
         obj.setVisible(true);
@@ -334,7 +369,7 @@ public class main extends javax.swing.JFrame {
     private void addButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton2ActionPerformed
         // TODO add your handling code here:
         String ing = SearchIng.getText();
-         System.out.println(ing);
+        System.out.println(ing);
         ArrayList<Recipe> recipes2 = new ArrayList<>();
         for (Recipe recipe : this.recipes) {
             HashMap<String, String> recipeIng = recipe.getIngredients();
@@ -353,6 +388,11 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchIng.setText("");
     }//GEN-LAST:event_SearchIngMouseClicked
+
+    private void SearchNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchNameMouseClicked
+        // TODO add your handling code here:
+        SearchName.setText("");
+    }//GEN-LAST:event_SearchNameMouseClicked
 
     /**
      * @param args the command line arguments

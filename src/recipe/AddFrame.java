@@ -269,6 +269,22 @@ public class AddFrame extends javax.swing.JFrame {
         
         
         try{
+              String step=Step.getText();
+            String ing = Ingredient.getText();
+            if(!step.equals("")) {
+                steps.add(Step.getText());
+            }
+            if(!ing.equals("")) {
+                 ingredients.put(Ingredient.getText(), Quantity.getText());
+            }
+            if(steps.size()==0) {
+                 JOptionPane.showMessageDialog(null, "NO Steps");
+            }
+            else if(ingredients.size()==0) {
+                 JOptionPane.showMessageDialog(null, "NO ingredients");
+            }
+            else {
+            
             Recipe rsp = new Recipe(Name.getText(), parseDouble(Time.getText()), this.ingredients, this.steps);
 //            this.recipes.add(rsp);
             try {
@@ -276,12 +292,13 @@ public class AddFrame extends javax.swing.JFrame {
                 recipeWriter.write(rsp.toString());
                 recipeWriter.close();
             } catch (IOException ex) {
-                Logger.getLogger(AddFrame.class.getName()).log(Level.SEVERE, null, ex);
+              //  Logger.getLogger(AddFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             main obj = new main();
             obj.setVisible(true);
 
             dispose();
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Invalid Time");
         }
