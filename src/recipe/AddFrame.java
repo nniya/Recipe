@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,10 +64,14 @@ public class AddFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(185, 121, 72));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(244, 225, 202));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Name");
 
+        Name.setBackground(new java.awt.Color(236, 217, 195));
         Name.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Name.setText("Name");
@@ -75,10 +81,12 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(244, 225, 202));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Time");
 
+        Time.setBackground(new java.awt.Color(236, 217, 195));
         Time.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Time.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Time.setText("60");
@@ -88,10 +96,12 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(244, 225, 202));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Ingredients");
 
+        Quantity.setBackground(new java.awt.Color(236, 217, 195));
         Quantity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Quantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Quantity.setText("20g");
@@ -101,6 +111,7 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
+        Ingredient.setBackground(new java.awt.Color(236, 217, 195));
         Ingredient.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Ingredient.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Ingredient.setText("olives");
@@ -110,6 +121,7 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
+        AddIngredientButton.setBackground(new java.awt.Color(220, 177, 129));
         AddIngredientButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         AddIngredientButton.setText("Add ingredient");
         AddIngredientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +130,12 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(244, 225, 202));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Steps");
 
+        Step.setBackground(new java.awt.Color(236, 217, 195));
         Step.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Step.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Step.setText("heat the olives to 100 degrees for 10 minutes");
@@ -131,6 +145,7 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
+        AddStepButton.setBackground(new java.awt.Color(220, 177, 129));
         AddStepButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         AddStepButton.setText("Add step");
         AddStepButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +154,7 @@ public class AddFrame extends javax.swing.JFrame {
             }
         });
 
+        Submit.setBackground(new java.awt.Color(220, 177, 129));
         Submit.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Submit.setText("Submit");
         Submit.addActionListener(new java.awt.event.ActionListener() {
@@ -176,16 +192,18 @@ public class AddFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(AddStepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Step)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Step, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(102, 102, 102)
+                                        .addComponent(AddStepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(60, 60, 60)
+                                        .addComponent(Submit, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,15 +270,26 @@ public class AddFrame extends javax.swing.JFrame {
 
     private void AddIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddIngredientButtonActionPerformed
         // TODO add your handling code here:
-        ingredients.put(Ingredient.getText(), Quantity.getText());
-        Ingredient.setText("");
-        Quantity.setText("");
+        if(Ingredient.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Empty ingredient");
+        }else if(Quantity.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Empty quantity");
+        }else{
+            ingredients.put(Ingredient.getText(), Quantity.getText());
+            Ingredient.setText("");
+            Quantity.setText("");
+        }
     }//GEN-LAST:event_AddIngredientButtonActionPerformed
 
     private void AddStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStepButtonActionPerformed
         // TODO add your handling code here:
-        steps.add(Step.getText());
-        Step.setText("");
+        if(Step.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Empty step");
+        }else{
+            steps.add(Step.getText());
+            Step.setText("");
+        }
+        
     }//GEN-LAST:event_AddStepButtonActionPerformed
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
@@ -269,35 +298,48 @@ public class AddFrame extends javax.swing.JFrame {
         
         
         try{
-              String step=Step.getText();
+            String step=Step.getText();
             String ing = Ingredient.getText();
             if(!step.equals("")) {
                 steps.add(Step.getText());
             }
             if(!ing.equals("")) {
-                 ingredients.put(Ingredient.getText(), Quantity.getText());
+                ingredients.put(Ingredient.getText(), Quantity.getText());
             }
             if(steps.size()==0) {
-                 JOptionPane.showMessageDialog(null, "NO Steps");
+                JOptionPane.showMessageDialog(null, "NO Steps");
             }
             else if(ingredients.size()==0) {
-                 JOptionPane.showMessageDialog(null, "NO ingredients");
+                JOptionPane.showMessageDialog(null, "NO ingredients");
             }
             else {
-            
-            Recipe rsp = new Recipe(Name.getText(), parseDouble(Time.getText()), this.ingredients, this.steps);
-//            this.recipes.add(rsp);
-            try {
-                recipeWriter = new FileWriter("recipes.txt", true);
-                recipeWriter.write(rsp.toString());
-                recipeWriter.close();
-            } catch (IOException ex) {
-              //  Logger.getLogger(AddFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            main obj = new main();
-            obj.setVisible(true);
+                String name = Name.getText();
+                String time = Time.getText();
+                String nameRegex="[a-zA-Z\\s]*$";
+                String timeRegex="[0-9]+$";
+               // System.out.println(name.matches(nameRegex));
+                if(name.matches(nameRegex) && time.matches(timeRegex)) {
+                  Recipe rsp = new Recipe(name, parseDouble(time), this.ingredients, this.steps);
+                  try {
+                    recipeWriter = new FileWriter("recipes.txt", true);
+                    recipeWriter.write(rsp.toString());
+                    recipeWriter.close();
+                    } catch (IOException ex) {
+                      //  Logger.getLogger(AddFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    main obj = new main();
+                    obj.setVisible(true);
 
-            dispose();
+                    dispose();
+                } else if(!name.matches(nameRegex)) {
+                    JOptionPane.showMessageDialog(null, "Invalid name");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Invalid time");
+                }
+                
+    //            this.recipes.add(rsp);
+//                if()
+                
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Invalid Time");

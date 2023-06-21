@@ -71,7 +71,7 @@ public class main extends javax.swing.JFrame {
                 }
                 Recipe rsp = new Recipe(name, time, ingrs, stps);
                 this.recipes.add(rsp);
-                System.out.println(rsp.toString());
+//                System.out.println(rsp.toString());
                 items.add(name);
                 line = reader.readLine();
             }
@@ -114,11 +114,16 @@ public class main extends javax.swing.JFrame {
     public void myInitComponents(String[] names) {
         JList list = new JList(names);
         list.setBackground(new Color(207, 160, 90));
-        list.setPreferredSize(new Dimension(480, 650));
+        list.setPreferredSize(new Dimension(535, 585));
 
         list.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                System.out.println(list.getSelectedIndices()[0]);
+//                System.out.println(list.getSelectedIndices()[0]);
+                if(selected != null && selected[0] == list.getSelectedIndices()[0]){
+                    DetailFrame obj = new DetailFrame(recipes.get(selected[0]));
+                    obj.setVisible(true);
+                    dispose();
+                }
                 selected = list.getSelectedIndices();
 //                System.out.println(list.getSelectedIndex());
             }
@@ -141,6 +146,8 @@ public class main extends javax.swing.JFrame {
         addButton1 = new javax.swing.JButton();
         SearchIng = new javax.swing.JTextField();
         addButton2 = new javax.swing.JButton();
+        addButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,6 +177,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        SearchName.setBackground(new java.awt.Color(236, 217, 195));
         SearchName.setText("Search");
         SearchName.setToolTipText("Search name");
         SearchName.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -192,6 +200,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        SearchIng.setBackground(new java.awt.Color(236, 217, 195));
         SearchIng.setText("Search ingredients");
         SearchIng.setToolTipText("Search ingredients");
         SearchIng.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,19 +218,32 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        addButton3.setBackground(new java.awt.Color(220, 177, 129));
+        addButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        addButton3.setText("Sort");
+        addButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recipe/MicrosoftTeams-image.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SearchIng, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchName)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                    .addComponent(addButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SearchIng)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SearchName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -239,7 +261,11 @@ public class main extends javax.swing.JFrame {
                 .addComponent(SearchIng, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(addButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(addButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(237, 203, 164));
@@ -283,9 +309,7 @@ public class main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -297,8 +321,8 @@ public class main extends javax.swing.JFrame {
         ArrayList<Recipe> recipes2 = new ArrayList<>();
         for (Recipe recipe : this.recipes) {
             String recipeName = recipe.getName().toLowerCase();
-            System.out.println(recipeName);
-            System.out.println(name);
+//            System.out.println(recipeName);
+//            System.out.println(name);
             if (recipeName.startsWith(name.toLowerCase())) {
                 recipes2.add(recipe);
             }
@@ -369,11 +393,11 @@ public class main extends javax.swing.JFrame {
     private void addButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton2ActionPerformed
         // TODO add your handling code here:
         String ing = SearchIng.getText();
-        System.out.println(ing);
+//        System.out.println(ing);
         ArrayList<Recipe> recipes2 = new ArrayList<>();
         for (Recipe recipe : this.recipes) {
             HashMap<String, String> recipeIng = recipe.getIngredients();
-            System.out.println(recipeIng);
+//            System.out.println(recipeIng);
             if (recipeIng.containsKey(ing)) {
                 recipes2.add(recipe);
             }
@@ -393,6 +417,37 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchName.setText("");
     }//GEN-LAST:event_SearchNameMouseClicked
+
+    private void addButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton3ActionPerformed
+        // TODO add your handling code here:
+        int n = this.recipes.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (this.recipes.get(j).getName().toLowerCase().compareTo(this.recipes.get(j+1).getName().toLowerCase()) > 0) {
+                    // swap arr[j+1] and arr[j]
+                    Recipe temp = this.recipes.get(j);
+                    this.recipes.set(j, this.recipes.get(j + 1));
+                    this.recipes.set(j + 1, temp);
+                }
+            }
+        }
+//        for (int i = 1; i < n; i++) {
+//            Recipe key = this.recipes.get(i);
+//            int j = i - 1;
+//            while (j >= 0 && this.recipes.get(j).name.compareTo(key.getName()) < 0) {
+////                this.recipes.get(j + 1).setName(this.recipes.get(j).getName());
+//                this.recipes.set(j + 1, this.recipes.get(j));
+//                j = j - 1;
+//                System.out.println(this.recipes.get(j).name.compareTo(key.getName()) < 0);
+//                System.out.println(key);
+//                
+//            }
+//            this.recipes.set(j + 1, key);
+//        }
+        main obj = new main(this.recipes);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,7 +492,9 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JButton addButton1;
     private javax.swing.JButton addButton2;
+    private javax.swing.JButton addButton3;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
